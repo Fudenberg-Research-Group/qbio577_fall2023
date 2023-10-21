@@ -38,3 +38,12 @@ def plot_pca( pca ,
                 lw=lw
    )
 
+
+
+def get_labels(pca, bigwig_metadata, metadata_label_column):
+    labels = [bigwig_metadata.query(
+        "`File accession`==@ file_accession ").loc[:,metadata_label_column].values[0]
+              for file_accession in pca.feature_names_in_]
+    le = sklearn.preprocessing.LabelEncoder()
+    le.fit(labels)
+    return le, labels
