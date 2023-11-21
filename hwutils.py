@@ -38,3 +38,11 @@ def plot_pca( pca ,
                 lw=lw
    )
 
+
+
+def autocorr(x):
+    result = []
+    for row in x.values:
+        row_corr = np.correlate(row, row, mode='full')[len(row)-1:]
+        result.append(row_corr/np.max(row_corr))
+    return result
